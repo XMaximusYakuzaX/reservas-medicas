@@ -29,15 +29,12 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router"
-    ],
-        "extra": {
+    "extra": {
       "API_BASE_URL": "http://localhost:4000",
       "OPENWEATHER_API_KEY": "TU_API_KEY_AQUI"
     },
-    "experiments": {
-      "typedRoutes": true
-    }
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }
