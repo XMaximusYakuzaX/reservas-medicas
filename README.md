@@ -1,7 +1,7 @@
 # 🏥 Reservas Médicas — App móvil con Expo + React Native + Node/Express + Supabase + APIs de clima
 
 Aplicación móvil que permite a los usuarios autenticarse, consultar su información médica, calcular su IMC y visualizar el clima actual de su ciudad.  
-El proyecto combina un **backend Node/Express** con autenticación JWT y un **frontend móvil en Expo + React Native**, utilizando **SecureStore**, **Supabase** para almacenamiento en la nube y consumo de **OpenWeather** (API principal) con **Open-Meteo** (fallback).
+El proyecto combina un **backend Node/Express** con su autenticación JWT y un **frontend móvil en Expo + React Native**, utilizando **SecureStore**, **Supabase** para almacenamiento en la nube y consumo de **OpenWeather** (API principal) con **Open-Meteo** (fallback).
 
 ---
 
