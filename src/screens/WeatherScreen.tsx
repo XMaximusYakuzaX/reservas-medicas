@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    Button,
-    KeyboardAvoidingView,
-    Platform,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  Alert,
+  Button,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { getWeatherByCity } from '../api/weather';
+
+type WeatherResult = {
+  temp: number;
+  desc?: string;                    // puede venir indefinido
+  source?: string;                  // puede venir indefinido
+};
 
 export default function WeatherScreen() {
   const [city, setCity] = useState('Tehuacan');
@@ -28,12 +34,12 @@ export default function WeatherScreen() {
       setSource(null);
       setLastUpdated(null);
 
-      const result = await getWeatherByCity(city);
+      const result = (await getWeatherByCity(city)) as WeatherResult;
+
       setTemp(result.temp);
-      setDesc(result.desc);
-      if ('source' in result && typeof result.source === 'string') {
-        setSource(result.source);
-      }
+      // 👇 clave para evitar TS2345: si desc viene undefined, guardamos null
+      setDesc(result.desc ?? null);
+      setSource(typeof result.source === 'string' ? result.source : null);
       setLastUpdated(new Date());
     } catch (e: any) {
       const msg =
@@ -54,8 +60,8 @@ export default function WeatherScreen() {
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',   // centra vertical
-          alignItems: 'center',       // centra horizontal
+          justifyContent: 'center',
+          alignItems: 'center',
           padding: 16,
           gap: 12,
         }}
@@ -92,13 +98,15 @@ export default function WeatherScreen() {
 
         {temp !== null && (
           <View style={{ marginTop: 12, alignItems: 'center' }}>
-            <Text>Temperatura: {temp}°C — {desc}</Text>
+            <Text>
+              Temperatura: {temp}°C {desc ? `— ${desc}` : ''}
+            </Text>
             <Text style={{ marginTop: 4, opacity: 0.8 }}>
               {source ? `Fuente: ${source}` : 'Fuente: —'}
             </Text>
             {lastUpdated && (
               <Text style={{ marginTop: 2, fontSize: 12, opacity: 0.7 }}>
-                Actualizado: {lastUpdated.toLocaleTimeString()}
+              Actualizado: {lastUpdated.toLocaleTimeString()}
               </Text>
             )}
           </View>
