@@ -16,6 +16,7 @@ El objetivo es ayudar a los desarrolladores a elegir la opción más adecuada se
 | **Código abierto** | No | No | Sí, completamente open source |
 | **Casos de uso recomendados** | Apps móviles/web en tiempo real, MVPs rápidos | Aplicaciones empresariales o integradas con otros servicios AWS | Proyectos que buscan independencia o auto-hospedaje |
 
+
 ---
 
 ## Conclusión
