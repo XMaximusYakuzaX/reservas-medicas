@@ -261,4 +261,3 @@ Todos los nombres de APIs y servicios externos pertenecen a sus respectivos prop
 ---
 
 **Repositorio:** [https://github.com/MaximusYakuza/reservas-medicas](https://github.com/MaximusYakuza/reservas-medicas)  
-**Versión:** `v1.0.0`
