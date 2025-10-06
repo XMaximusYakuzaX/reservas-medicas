@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import * as SecureStore from 'expo-secure-store';
-import { getProfile, login } from '../src/api/auth'; // ajusta rutas
+import { getProfile, login } from '../src/api/auth';
 import http from '../src/api/http';
 
 describe('Auth API', () => {

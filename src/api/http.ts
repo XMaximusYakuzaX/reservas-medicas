@@ -24,7 +24,6 @@ export const http: AxiosInstance = axios.create({
 });
 
 http.interceptors.request.use(async (config) => {
-  // 👇 lee la nueva clave
   const token = await SecureStore.getItemAsync('token');
 
   if (token) {
@@ -42,7 +41,6 @@ http.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error?.response?.status === 401) {
-      // 👇 limpia las nuevas claves
       await SecureStore.deleteItemAsync('token');
       await SecureStore.deleteItemAsync('user');
     }

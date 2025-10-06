@@ -253,6 +253,12 @@ Categorías:
 
 ---
 
+## 📚 11. Documentación adicional
+
+La documentación técnica detallada del proyecto se encuentra en la carpeta [`/docs`](./docs)
+
+---
+
 ## 🧾 Licencia
 
 Este proyecto se distribuye con fines académicos y de aprendizaje.  

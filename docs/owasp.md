@@ -1,8 +1,10 @@
----
-#Identify at least 3 vulnerabilities from OWASP Mobile Top 10 #4
-**Proyecto:** Aplicación Móvil "Reservas Médicas"  
+
+## Identify at least 3 vulnerabilities from OWASP Mobile Top 10 #4
+
 **Autor:** Karen Itzel Jiménez Pacheco  
-**Fecha:** 04 de octubre de 2025  ---
+**Fecha:** 04 de octubre de 2025  
+
+---
 
 
 ##  Alcance / Scope

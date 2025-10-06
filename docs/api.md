@@ -1,8 +1,8 @@
----
-#The API used in the project must be documented, explaining its purpose and justification.
-**Proyecto:** Aplicación Móvil "Reservas Médicas"  
-**Autor:** Angel Gabriel Carreon Trujillo
+# The API used in the project must be documented, explaining its purpose and justification.
+
+**Autor:** Angel Gabriel Carreon Trujillo   
 **Fecha:** 05 de octubre de 2025  
+
 ---
 
 ## Propósito General/General Purpose
