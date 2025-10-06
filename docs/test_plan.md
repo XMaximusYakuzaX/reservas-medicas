@@ -1,6 +1,55 @@
+# Unit Test Documentation – Medical Reservations
+
+**Author:** Saul Israel Cid Dominguez
+**Date:** October 5, 2025
+**Related Issue:** #9
+
+---
+
+### 1. Introduction
+
+This document describes the design and purpose of the unit tests that are already implemented in the Medical Reservations project. The objective is to ensure code quality, explain what was tested, and facilitate future maintenance.
+
+### 2. Specific Objectives
+
+The implemented tests aim to meet the following objectives:
+* **Ensure authentication:** Validate that the login and JWT token management work correctly.
+* **Validate API integrations:** Check that calls to external APIs (weather) and the local backend behave as expected.
+* **Guarantee error handling:** Ensure that the application responds in a controlled manner to failures, such as a 401 (Unauthorized) error.
+
+### 3. Scope
+
+The existing unit tests cover the following project modules and files.
+
+| Module Tested | Test File | Description and Purpose of the Test |
+| :--- | :--- | :--- |
+| **API Authentication** | `auth.api.test.ts` | Verifies the entire authentication flow. It ensures that a **successful login** saves the **token** on the device and returns the user's data. It also confirms that a **failed login** with incorrect credentials is rejected. Finally, it validates that a user with a valid token can obtain their profile data. |
+| **HTTP Interceptor (Tokens)** | `http.interceptor.test.ts` | Tests the automatic component that manages HTTP requests. It verifies that, if a user is logged in, their **authorization token is correctly attached** to all outgoing API calls. Additionally, it checks a security feature: if the API returns a **401 (Unauthorized)** error, the invalid token is automatically deleted from the device. |
+| **Weather API** | `weather.api.test.ts` | Checks the weather data retrieval system, which includes a **fallback mechanism**. The test validates that the app first tries to connect to the primary provider (OpenWeather). If this fails, the test ensures that the app automatically switches to the backup provider (Open-Meteo) to guarantee that the user always receives the weather information. |
+
+### 4. Tools and Configuration
+
+The tests were implemented using the following environment:
+* **Testing Framework:** Jest (`jest-expo`).
+* **Request Mocking:** `axios-mock-adapter` to avoid real API calls during tests.
+* **Additional Libraries:** `@testing-library/react-native`, `expo-secure-store`.
+* **Execution Command:** The tests are run from the project root with the `npm test` command.
+
+### 5. Best Practices
+
+The tests are organized inside the `__tests__/` folder to separate the application code from the test code. `mocks` are used to isolate tests from external dependencies, which ensures that the results are consistent and fast.
+
+### 6. Conclusion
+
+The current test suite strengthens the quality and stability of the system by verifying the critical functionality of authentication and API consumption. This documentation serves as a guide to understand the current test coverage.
+
+
+
+
+
 # Documentación de Pruebas Unitarias – Reservas Médicas
 
-**Autor:** Israel Cid Dominguez
+**Autor:** Saul Israel Cid Dominguez
 **Fecha:** 5 de Octubre de 2025
 **Issue Relacionado:** #9
 
