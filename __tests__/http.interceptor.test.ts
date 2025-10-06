@@ -1,8 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import * as SecureStore from 'expo-secure-store';
-
-// Ajusta la ruta según tu proyecto:
-import http from '../src/api/http'; // tu axios instance con interceptores
+import http from '../src/api/http';
 
 describe('HTTP interceptor', () => {
   const mock = new MockAdapter(http);

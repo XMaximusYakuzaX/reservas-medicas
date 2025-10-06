@@ -7,11 +7,9 @@ export async function login(credentials: { email: string; password: string }) {
     const { data } = await http.post('/auth/login', credentials);
 
     if (data?.token) {
-      // 👇 clave esperada por el test
       await SecureStore.setItemAsync('token', data.token);
     }
     if (data?.user) {
-      // 👇 clave esperada por el test
       await SecureStore.setItemAsync('user', JSON.stringify(data.user));
     }
 
