@@ -91,3 +91,26 @@ Las pruebas están organizadas dentro de la carpeta `__tests__/` para separar el
 ### 6. Conclusión
 
 La suite de pruebas actual fortalece la calidad y estabilidad del sistema al verificar la funcionalidad crítica de autenticación y consumo de APIs. Esta documentación sirve como guía para entender la cobertura actual de las pruebas.
+
+
+
+
+---
+
+## Evidence of Execution (Issue #10)
+
+**Status:** Completed.
+
+The following screenshot shows the successful execution of the project's test suite from the terminal.
+
+![Test Results](./assets/test-results.png)
+
+---
+
+## Evidencia de Ejecución (Issue #10)
+
+**Estado:** Completado.
+
+A continuación se muestra la captura de pantalla de la terminal con la ejecución exitosa de la suite de pruebas del proyecto.
+
+![Resultados de las Pruebas](./assets/test-results.png)
