@@ -3,8 +3,7 @@
 ## English Version
 
 **Add description of cloud database service and justification #6**
-
-**Project:** Mobile Application "Medical Reservals"  
+  
 **Author:** Diego Sanchez Martinez  
 **Date:** October 05, 2025
 
@@ -48,8 +47,7 @@ For the "Medical Reservations" application, Supabase was selected for offering t
 ## Versión en Español
 
 **Add description of cloud database service and justification #6**
-
-**Proyecto:** Aplicación Móvil "Reservas Médicas"  
+  
 **Autor:** Diego Sanchez Martinez  
 **Fecha:** 05 de octubre de 2025
 
