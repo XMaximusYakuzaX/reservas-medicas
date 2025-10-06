@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import http from '../src/api/http';
-import { getWeather } from '../src/api/weather'; // ajusta
+import { getWeather } from '../src/api/weather';
 
 describe('Weather API with fallback', () => {
   const mock = new MockAdapter(http);
