@@ -1,0 +1,53 @@
+name: Semantic Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Automatic Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: 📦 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🚀 Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+        run: npx semantic-release
+
+      - name: 🎯 Summary
+        if: always()
+        run: |
+          echo ""
+          echo "========================================"
+          echo "✅ Semantic Release completed"
+          echo "========================================"
+          echo "If there were valid changes, it created:"
+          echo "  - New tag"
+          echo "  - GitHub Release"
+          echo "  - CHANGELOG.md update"
+          echo "========================================"
+          echo ""
