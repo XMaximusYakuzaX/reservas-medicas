@@ -12,14 +12,29 @@ interface ExpoConfig {
   hostUri?: string;
 }
 
+interface ConstantsWithManifest {
+  manifest?: {
+    debuggerHost?: string;
+  };
+  manifest2?: {
+    extra?: {
+      expoClient?: {
+        hostUri?: string;
+      };
+    };
+  };
+}
+
 function resolveBaseURL(): string {
   const extraUrl = (Constants.expoConfig as ExpoConfig)?.extra?.API_BASE_URL;
   if (extraUrl && !extraUrl.includes('localhost')) return extraUrl;
 
+  const constantsWithManifest = Constants as unknown as ConstantsWithManifest;
+
   const hostUri =
     (Constants.expoConfig as ExpoConfig)?.hostUri ??
-    (Constants as any).manifest?.debuggerHost ??
-    (Constants as any).manifest2?.extra?.expoClient?.hostUri;
+    constantsWithManifest.manifest?.debuggerHost ??
+    constantsWithManifest.manifest2?.extra?.expoClient?.hostUri;
 
   if (hostUri) {
     const host = String(hostUri).split(':')[0];
