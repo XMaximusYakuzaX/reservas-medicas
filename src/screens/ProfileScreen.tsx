@@ -5,17 +5,16 @@ import { computeBMI, getProfileByEmail, upsertProfile } from '../api/profiles';
 import { useAuth } from '../auth/useAuth';
 
 export default function ProfileScreen() {
-  const { user } = useAuth(); // ya tienes name/email desde tu AuthContext
+  const { user } = useAuth();
   const email = user?.email ?? '';
 
-  const [height, setHeight] = useState<string>(''); // cm
-  const [weight, setWeight] = useState<string>(''); // kg
+  const [height, setHeight] = useState<string>('');
+  const [weight, setWeight] = useState<string>('');
   const [bmiText, setBmiText] = useState<string>('');
 
   const recalc = () => {
     const { bmi, category } = computeBMI(Number(height), Number(weight));
-    if (bmi) setBmiText(`${bmi} — ${category}`);
-    else setBmiText('');
+    setBmiText(bmi ? `${bmi} — ${category}` : '');
   };
 
   useEffect(() => {
@@ -29,8 +28,9 @@ export default function ProfileScreen() {
           const { bmi, category } = computeBMI(profile.height_cm, profile.weight_kg);
           setBmiText(`${bmi} — ${category}`);
         }
-      } catch (e: any) {
-        console.warn('Error cargando perfil:', e?.message || e);
+      } catch (e: unknown) {
+        if (e instanceof Error) console.warn('Error cargando perfil:', e.message);
+        else console.warn('Error cargando perfil:', e);
       }
     })();
   }, [email]);
@@ -48,8 +48,9 @@ export default function ProfileScreen() {
       const { bmi, category } = computeBMI(saved.height_cm, saved.weight_kg);
       setBmiText(`${bmi} — ${category}`);
       Alert.alert('Listo', 'Perfil guardado correctamente.');
-    } catch (e: any) {
-      Alert.alert('Error', e?.message ?? 'No se pudo guardar el perfil.');
+    } catch (e: unknown) {
+      if (e instanceof Error) Alert.alert('Error', e.message);
+      else Alert.alert('Error', 'No se pudo guardar el perfil.');
     }
   };
 
