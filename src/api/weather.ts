@@ -2,6 +2,10 @@
 import Constants from 'expo-constants';
 import http from './http';
 
+interface ExpoConfigExtra {
+  OPENWEATHER_API_KEY?: string;
+}
+
 const CITIES: Record<string, { lat: number; lon: number }> = {
   tehuacan: { lat: 18.4616, lon: -97.3926 },
 };
@@ -29,7 +33,7 @@ export const getWeather = async (cityOrCoords: string) => {
         q: cityOrCoords,
         units: 'metric',
         lang: 'es',
-        appid: (Constants.expoConfig?.extra as any)?.OPENWEATHER_API_KEY,
+        appid: (Constants.expoConfig?.extra as ExpoConfigExtra)?.OPENWEATHER_API_KEY,
       },
       timeout: 10000,
     });
@@ -47,39 +51,36 @@ export const getWeather = async (cityOrCoords: string) => {
     // continúa al fallback
   }
 
-  try {
-    const omUrl = `https://api.open-meteo.com/v1/forecast`;
-    const key = cityOrCoords
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
-    const coords = CITIES[key] || CITIES['tehuacan'];
+  // Fallback a Open-Meteo
+  const omUrl = `https://api.open-meteo.com/v1/forecast`;
+  const key = cityOrCoords
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+  const coords = CITIES[key] || CITIES['tehuacan'];
 
-    const { data } = await http.get(omUrl, {
-      params: {
-        latitude: coords.lat,
-        longitude: coords.lon,
-        current: 'temperature_2m,weather_code',
-        timezone: 'auto',
-      },
-      timeout: 10000,
-    });
+  const { data } = await http.get(omUrl, {
+    params: {
+      latitude: coords.lat,
+      longitude: coords.lon,
+      current: 'temperature_2m,weather_code',
+      timezone: 'auto',
+    },
+    timeout: 10000,
+  });
 
-    const temp =
-      (typeof data?.temp === 'number' ? data.temp : undefined) ??
-      (typeof data?.current?.temperature_2m === 'number' ? data.current.temperature_2m : undefined);
+  const temp =
+    (typeof data?.temp === 'number' ? data.temp : undefined) ??
+    (typeof data?.current?.temperature_2m === 'number' ? data.current.temperature_2m : undefined);
 
-    if (typeof temp !== 'number') {
-      throw new Error('Open-Meteo response shape not recognized');
-    }
-
-    const code = data?.current?.weather_code as number | undefined;
-    const desc = mapWeatherCodeToDesc(code ?? -1);
-
-    return { temp, desc, source: 'Open-Meteo', raw: data };
-  } catch (error) {
-    throw error;
+  if (typeof temp !== 'number') {
+    throw new Error('Open-Meteo response shape not recognized');
   }
+
+  const code = data?.current?.weather_code as number | undefined;
+  const desc = mapWeatherCodeToDesc(code ?? -1);
+
+  return { temp, desc, source: 'Open-Meteo', raw: data };
 };
 
 export { getWeather as getWeatherByCity };

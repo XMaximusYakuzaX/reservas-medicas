@@ -11,12 +11,6 @@ import {
 } from 'react-native';
 import { getWeatherByCity } from '../api/weather';
 
-type WeatherResult = {
-  temp: number;
-  desc?: string; // puede venir indefinido
-  source?: string; // puede venir indefinido
-};
-
 export default function WeatherScreen() {
   const [city, setCity] = useState('Tehuacan');
   const [temp, setTemp] = useState<number | null>(null);
@@ -28,24 +22,22 @@ export default function WeatherScreen() {
   const onFetch = async () => {
     try {
       setLoading(true);
-      // limpiamos antes de consultar para que se note el cambio
       setTemp(null);
       setDesc(null);
       setSource(null);
       setLastUpdated(null);
 
-      const result = (await getWeatherByCity(city)) as WeatherResult;
+      const result = await getWeatherByCity(city);
 
       setTemp(result.temp);
-      // 👇 clave para evitar TS2345: si desc viene undefined, guardamos null
       setDesc(result.desc ?? null);
       setSource(typeof result.source === 'string' ? result.source : null);
       setLastUpdated(new Date());
-    } catch (e: any) {
-      const msg =
-        typeof e?.message === 'string'
-          ? e.message
-          : 'No se pudo obtener el clima (revisa API key / red).';
+    } catch (e: unknown) {
+      let msg = 'No se pudo obtener el clima (revisa API key / red).';
+      if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') {
+        msg = e.message;
+      }
       Alert.alert('Error', msg);
     } finally {
       setLoading(false);

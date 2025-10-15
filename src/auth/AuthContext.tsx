@@ -1,3 +1,4 @@
+// src/auth/AuthContext.tsx
 import * as SecureStore from 'expo-secure-store';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { http } from '../api/http'; // 👈 usa el axios con autodetección de IP
@@ -12,7 +13,14 @@ type AuthContextType = {
   logout: () => Promise<void>;
 };
 
-export const AuthContext = createContext<AuthContextType>({} as any);
+// Inicialización segura sin usar `any`
+export const AuthContext = createContext<AuthContextType>({
+  token: null,
+  user: null,
+  isChecking: true,
+  login: async () => {},
+  logout: async () => {},
+});
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
