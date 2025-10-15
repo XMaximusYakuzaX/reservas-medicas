@@ -49,7 +49,7 @@ El sistema se compone de dos módulos principales:
 
 ## 📁 3. Estructura de carpetas
 
-```
+```bash
 reservas-medicas/
 │
 ├── app.json                  # Configuración de Expo (variables extra)
@@ -194,13 +194,13 @@ npm run dev
 
 El servidor estará en:
 
-```
+```bash
 http://localhost:4000
 ```
 
 Credenciales demo:
 
-```
+```plaintext
 email: demo@med.app
 password: 123456
 ```
