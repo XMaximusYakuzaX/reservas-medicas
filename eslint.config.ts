@@ -8,6 +8,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettierFlat from 'eslint-config-prettier/flat';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import jestPlugin from 'eslint-plugin-jest';
 
 export default defineConfig([
   {
@@ -15,7 +16,17 @@ export default defineConfig([
     plugins: { js },
     extends: ['js/recommended'],
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        it: 'readonly',
+        expect: 'readonly',
+        describe: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+      },
     },
   },
 
@@ -60,6 +71,17 @@ export default defineConfig([
     files: ['**/*.css'],
     plugins: { css },
     language: 'css/css',
+  },
+
+  {
+    files: ['**/*.test.js', '**/*.test.ts', '**/*.test.tsx'],
+    plugins: {
+      jest: jestPlugin,
+    },
+    rules: {
+      'jest/consistent-test-it': 'error',
+      'jest/no-duplicate-hooks': 'warn',
+    },
   },
 
   {
