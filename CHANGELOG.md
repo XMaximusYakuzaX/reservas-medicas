@@ -2,6 +2,16 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [1.1.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.0.1...v1.1.0) (2025-10-15)
+
+### ✨ Features
+
+- **ci:** implement quality-check workflow ([#43](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/43)) ([82db911](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/82db91154613d8311b19c0ecb2fa5df44234e6e8)), closes [#42](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/42)
+
+### 🏗️ Build
+
+- setup husky, commitlint and commitizen ([#41](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/41)) ([e693f2a](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/e693f2ac635a4846e1f8c0324378031eac654d38)), closes [#37](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/37)
+
 ## [1.0.1](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.0.0...v1.0.1) (2025-10-15)
 
 ### 🐛 Bug Fixes
