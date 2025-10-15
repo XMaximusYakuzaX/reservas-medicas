@@ -35,8 +35,6 @@
       "SUPABASE_URL": "https://<tu-proyecto>.supabase.com",
       "SUPABASE_ANON_KEY": "TU_API_KEY_AQUI"
     },
-    "plugins": [
-      "expo-secure-store"
-    ]
+    "plugins": ["expo-secure-store"]
   }
 }

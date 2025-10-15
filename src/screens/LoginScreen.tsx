@@ -22,9 +22,9 @@ export default function LoginScreen() {
   return (
     <View
       style={{
-        flex: 1,                 // ocupa toda la pantalla
+        flex: 1, // ocupa toda la pantalla
         justifyContent: 'center', // centra verticalmente
-        alignItems: 'center',     // centra horizontalmente
+        alignItems: 'center', // centra horizontalmente
         padding: 16,
         gap: 12,
       }}

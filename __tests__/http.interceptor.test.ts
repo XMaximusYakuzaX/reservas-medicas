@@ -12,7 +12,7 @@ describe('HTTP interceptor', () => {
 
   it('adds Authorization header when token exists', async () => {
     (SecureStore.getItemAsync as jest.Mock).mockResolvedValue('abc.token.jwt');
-    mock.onGet('/profile').reply(config => {
+    mock.onGet('/profile').reply((config) => {
       expect(config.headers?.Authorization).toBe('Bearer abc.token.jwt');
       return [200, { ok: true }];
     });

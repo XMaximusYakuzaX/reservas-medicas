@@ -26,12 +26,20 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator>
         {!token ? (
-          <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Iniciar sesión' }} />
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ title: 'Iniciar sesión' }}
+          />
         ) : (
           <>
             <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
             <Stack.Screen name="Weather" component={WeatherScreen} options={{ title: 'Weather' }} />
-            <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Perfil (IMC)' }} />
+            <Stack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{ title: 'Perfil (IMC)' }}
+            />
           </>
         )}
       </Stack.Navigator>
