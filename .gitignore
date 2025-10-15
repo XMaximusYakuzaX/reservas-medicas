@@ -42,7 +42,3 @@ yarn-error.*
 /android
 
 .vscode/
-
-eslint.config.ts
-package-lock.json
-package.json
