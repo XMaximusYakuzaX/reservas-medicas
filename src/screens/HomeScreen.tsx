@@ -1,15 +1,20 @@
 // src/screens/HomeScreen.tsx
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Alert, Button, Text, TextInput, View } from 'react-native';
 import { getProfile } from '../api/auth';
 import { computeBMI, getProfileByEmail, upsertProfile } from '../api/profiles';
 import { useAuth } from '../auth/useAuth';
 
+type RootStackParamList = {
+  Profile: undefined;
+  Weather: undefined;
+};
+
 export default function HomeScreen() {
   const { user, logout } = useAuth();
   const email = user?.email ?? '';
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   // Estado del check al endpoint protegido
   const [profileOk, setProfileOk] = useState<string>('');
@@ -53,8 +58,12 @@ export default function HomeScreen() {
           const { bmi, category } = computeBMI(profile.height_cm, profile.weight_kg);
           setBmiText(`${bmi} — ${category}`);
         }
-      } catch (e: any) {
-        console.warn('Error cargando perfil:', e?.message || e);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.warn('Error cargando perfil:', error.message);
+        } else {
+          console.warn('Error cargando perfil:', error);
+        }
       }
     })();
   }, [email]);
@@ -69,30 +78,23 @@ export default function HomeScreen() {
         height_cm: Number(height),
         weight_kg: Number(weight),
       });
+
       const { bmi, category } = computeBMI(saved.height_cm, saved.weight_kg);
       setBmiText(`${bmi} — ${category}`);
       Alert.alert('Listo', 'Perfil guardado correctamente.');
-    } catch (e: any) {
-      Alert.alert('Error', e?.message ?? 'No se pudo guardar el perfil.');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        Alert.alert('Error', error.message);
+      } else {
+        Alert.alert('Error', 'No se pudo guardar el perfil.');
+      }
     }
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        padding: 16,
-        gap: 16,
-      }}
-    >
+    <View style={{ flex: 1, padding: 16, gap: 16 }}>
       {/* Encabezado de bienvenida */}
-      <View
-        style={{
-          alignItems: 'center',
-          gap: 8,
-          paddingVertical: 8,
-        }}
-      >
+      <View style={{ alignItems: 'center', gap: 8, paddingVertical: 8 }}>
         <Text style={{ fontSize: 22, fontWeight: '600' }}>Bienvenido, {user?.name}</Text>
         {!!profileOk && <Text>{profileOk}</Text>}
       </View>
@@ -119,7 +121,6 @@ export default function HomeScreen() {
           value={height}
           onChangeText={(t) => {
             setHeight(t);
-            // recalcular en microtask
             setTimeout(recalc, 0);
           }}
           style={{ borderWidth: 1, borderColor: '#ccc', padding: 8, borderRadius: 8 }}
