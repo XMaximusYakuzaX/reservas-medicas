@@ -1,0 +1,6 @@
+printf "\n\033[1;33m⚡ Tip: Use 'npm run commit' for conventional commits!\033[0m\n"
+
+printf "\n\033[1;32m⚡ Running lint-staged...\033[0m\n"
+printf "\033[3;35mValidating code quality in staged files\033[0m\n\n"
+
+npx lint-staged
