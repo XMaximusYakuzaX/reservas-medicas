@@ -6,11 +6,11 @@ Todos los cambios notables de este proyecto serán documentados en este archivo.
 
 ### 🐛 Bug Fixes
 
-* eslint and prettier errors ([#40](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/40)) ([884d71d](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/884d71dd7f3c483f2e0e27b27887a3cdbf332530)), closes [#39](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/39)
+- eslint and prettier errors ([#40](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/40)) ([884d71d](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/884d71dd7f3c483f2e0e27b27887a3cdbf332530)), closes [#39](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/39)
 
 ### 🏗️ Build
 
-* eslint, prettier and lint-staged ([#38](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/38)) ([291fca4](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/291fca47679e44cad710ca0ff47f9f3389aedd54)), closes [#36](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/36)
+- eslint, prettier and lint-staged ([#38](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/38)) ([291fca4](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/291fca47679e44cad710ca0ff47f9f3389aedd54)), closes [#36](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/36)
 
 ## 1.0.0 (2025-10-15)
 
