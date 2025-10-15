@@ -96,12 +96,12 @@
     ]
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
     "*.{css,json,md}": [
       "prettier --write"
+    ],
+    "*.{js,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix"
     ]
   },
   "prettier": {
