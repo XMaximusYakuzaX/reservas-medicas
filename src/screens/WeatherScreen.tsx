@@ -13,8 +13,8 @@ import { getWeatherByCity } from '../api/weather';
 
 type WeatherResult = {
   temp: number;
-  desc?: string;                    // puede venir indefinido
-  source?: string;                  // puede venir indefinido
+  desc?: string; // puede venir indefinido
+  source?: string; // puede venir indefinido
 };
 
 export default function WeatherScreen() {
@@ -106,7 +106,7 @@ export default function WeatherScreen() {
             </Text>
             {lastUpdated && (
               <Text style={{ marginTop: 2, fontSize: 12, opacity: 0.7 }}>
-              Actualizado: {lastUpdated.toLocaleTimeString()}
+                Actualizado: {lastUpdated.toLocaleTimeString()}
               </Text>
             )}
           </View>

@@ -25,7 +25,12 @@ export const getWeather = async (cityOrCoords: string) => {
     const owUrl = `https://api.openweathermap.org/data/2.5/weather`;
     const { data } = await http.get(owUrl, {
       // En tests no importa, pero dejamos params por compatibilidad real
-      params: { q: cityOrCoords, units: 'metric', lang: 'es', appid: (Constants.expoConfig?.extra as any)?.OPENWEATHER_API_KEY },
+      params: {
+        q: cityOrCoords,
+        units: 'metric',
+        lang: 'es',
+        appid: (Constants.expoConfig?.extra as any)?.OPENWEATHER_API_KEY,
+      },
       timeout: 10000,
     });
 
@@ -44,7 +49,10 @@ export const getWeather = async (cityOrCoords: string) => {
 
   try {
     const omUrl = `https://api.open-meteo.com/v1/forecast`;
-    const key = cityOrCoords.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const key = cityOrCoords
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
     const coords = CITIES[key] || CITIES['tehuacan'];
 
     const { data } = await http.get(omUrl, {

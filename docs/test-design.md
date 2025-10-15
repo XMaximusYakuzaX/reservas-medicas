@@ -1,13 +1,16 @@
 # Unit Test Design – Medical Reservations
 
 ## 1. Introduction
+
 This document describes the design of the **unit tests** for the **Medical Reservations** project, a mobile application developed with **React Native + Expo**.  
 The goal is to ensure code quality, the reliability of critical functions (authentication, API consumption, and utilities), and to facilitate continuous system maintenance.
 
 ---
 
 ## 2. Objectives of Unit Testing
+
 The unit tests in this project aim to:
+
 - Validate the behavior of **isolated modules** (services/API/utils) without real dependencies.
 - **Detect regressions** early when integrating new features.
 - Verify **client-side security controls** (headers, token handling, cleanup on 401).
@@ -17,13 +20,14 @@ The unit tests in this project aim to:
 ---
 
 ## 3. Scope
+
 Unit tests cover the following project components:
 
-| Module | Description | Test File | Test Purpose |
-|---|---|---|---|
-| **Authentication API (auth.api)** | Login, profile retrieval, and secure storage. | `__tests__/auth.api.test.ts` | Verify storage in **Expo SecureStore** using `token` and `user` keys, and validate the payload returned by the API. |
-| **HTTP Interceptors** | Headers and global error handling. | `__tests__/http.interceptor.test.ts` | Ensure `Authorization: Bearer <token>` is added when a token exists, and **clear** storage (`token`, `user`) on **401** responses. |
-| **Weather API (weather.api)** | Integration with OpenWeather (primary) and Open-Meteo (fallback). | `__tests__/weather.api.test.ts` | Validate that the **primary provider** is used when it responds with 200, and that there is an **automatic fallback** if it fails, normalizing the numeric `temp`. |
+| Module                            | Description                                                       | Test File                            | Test Purpose                                                                                                                                                       |
+| --------------------------------- | ----------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Authentication API (auth.api)** | Login, profile retrieval, and secure storage.                     | `__tests__/auth.api.test.ts`         | Verify storage in **Expo SecureStore** using `token` and `user` keys, and validate the payload returned by the API.                                                |
+| **HTTP Interceptors**             | Headers and global error handling.                                | `__tests__/http.interceptor.test.ts` | Ensure `Authorization: Bearer <token>` is added when a token exists, and **clear** storage (`token`, `user`) on **401** responses.                                 |
+| **Weather API (weather.api)**     | Integration with OpenWeather (primary) and Open-Meteo (fallback). | `__tests__/weather.api.test.ts`      | Validate that the **primary provider** is used when it responds with 200, and that there is an **automatic fallback** if it fails, normalizing the numeric `temp`. |
 
 ---
 
@@ -49,15 +53,18 @@ npm run test:ci            # CI mode (sequential)
 ## 5. Test Case Matrix by Module
 
 ### 5.1 Authentication (`auth.api`)
+
 - **Login stores credentials** → expects `SecureStore.setItemAsync('token', <jwt>)` and `SecureStore.setItemAsync('user', <json>)`, returning the user.
 - **Profile** → `getProfile()` returns data when the backend responds 200.
 - **Errors** → normalized error messages are propagated when the API fails.
 
 ### 5.2 HTTP Interceptors (`http`)
+
 - **Request** → if a token exists in SecureStore, the interceptor adds `Authorization: Bearer <token>` to the headers.
 - **Response (401)** → upon receiving 401, `token` and `user` are cleared from SecureStore (defensive logout).
 
 ### 5.3 Weather (`weather.api`)
+
 - **Primary provider** → if the OpenWeather URL responds 200 with `{ temp: <n> }`, return the value with `source='OpenWeather'`.
 - **Fallback** → if the primary fails, query Open-Meteo and return `{ temp: <n> }` with `source='Open-Meteo'`.
 - **Normalization** → `temp` is always numeric; `desc` is optional.
@@ -88,20 +95,20 @@ The unit test design of **Medical Reservations** prioritizes **reliability, secu
 Using Jest with `jest-expo` and `axios-mock-adapter` enables testing authentication, interceptors, and API consumption without relying on external services.  
 This approach reduces regressions, increases code confidence, and facilitates the team’s continuous integration process.
 
-
-
 ---
-
 
 # Diseño de Pruebas Unitarias – Reservas Médicas
 
 ## 1. Introducción
+
 Este documento describe el diseño de las **pruebas unitarias** del proyecto **Reservas Médicas**, una aplicación móvil desarrollada con **React Native + Expo**. El objetivo es asegurar la calidad del código, la fiabilidad de las funciones críticas (autenticación, consumo de APIs y utilidades) y facilitar el mantenimiento continuo del sistema.
 
 ---
 
 ## 2. Objetivos de las pruebas unitarias
+
 Las pruebas unitarias en este proyecto buscan:
+
 - Validar el comportamiento de **módulos aislados** (servicios/API/utils) sin dependencias reales.
 - **Detectar regresiones** tempranas al integrar nuevas funcionalidades.
 - Verificar **controles de seguridad** en cliente (cabeceras, manejo de tokens, borrado ante 401).
@@ -111,13 +118,14 @@ Las pruebas unitarias en este proyecto buscan:
 ---
 
 ## 3. Alcance
+
 Las pruebas unitarias cubren los siguientes componentes del proyecto:
 
-| Módulo | Descripción | Archivo de prueba | Propósito de la prueba |
-|---|---|---|---|
-| **API de Autenticación (auth.api)** | Login, obtención de perfil y almacenamiento seguro. | `__tests__/auth.api.test.ts` | Verificar almacenamiento en **Expo SecureStore** con claves `token` y `user`, y validar el payload devuelto por la API. |
-| **Interceptores HTTP** | Cabeceras y manejo de errores globales. | `__tests__/http.interceptor.test.ts` | Asegurar que se añade `Authorization: Bearer <token>` cuando existe token y que se **limpia** el almacenamiento (`token`, `user`) ante respuestas **401**. |
-| **API Meteorológica (weather.api)** | Integración con OpenWeather (primario) y Open‑Meteo (fallback). | `__tests__/weather.api.test.ts` | Validar que se usa el **proveedor primario** cuando responde 200 y que existe **fallback automático** si falla, normalizando `temp` numérico. |
+| Módulo                              | Descripción                                                     | Archivo de prueba                    | Propósito de la prueba                                                                                                                                     |
+| ----------------------------------- | --------------------------------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API de Autenticación (auth.api)** | Login, obtención de perfil y almacenamiento seguro.             | `__tests__/auth.api.test.ts`         | Verificar almacenamiento en **Expo SecureStore** con claves `token` y `user`, y validar el payload devuelto por la API.                                    |
+| **Interceptores HTTP**              | Cabeceras y manejo de errores globales.                         | `__tests__/http.interceptor.test.ts` | Asegurar que se añade `Authorization: Bearer <token>` cuando existe token y que se **limpia** el almacenamiento (`token`, `user`) ante respuestas **401**. |
+| **API Meteorológica (weather.api)** | Integración con OpenWeather (primario) y Open‑Meteo (fallback). | `__tests__/weather.api.test.ts`      | Validar que se usa el **proveedor primario** cuando responde 200 y que existe **fallback automático** si falla, normalizando `temp` numérico.              |
 
 ---
 
@@ -143,15 +151,18 @@ npm run test:ci            # modo CI (secuencial)
 ## 5. Matriz de casos por módulo
 
 ### 5.1 Autenticación (`auth.api`)
+
 - **Login almacena credenciales** → se espera `SecureStore.setItemAsync('token', <jwt>)` y `SecureStore.setItemAsync('user', <json>)` y retorno del usuario.
 - **Perfil** → `getProfile()` devuelve datos cuando el backend responde 200.
 - **Errores** → se propagan mensajes de error normalizados cuando la API falla.
 
 ### 5.2 Interceptores HTTP (`http`)
+
 - **Request** → si existe token en SecureStore, el interceptor agrega `Authorization: Bearer <token>` a los headers.
 - **Response (401)** → al recibir 401, se borran `token` y `user` de SecureStore (logout defensivo).
 
 ### 5.3 Clima (`weather.api`)
+
 - **Proveedor primario** → si la URL de OpenWeather responde 200 con `{ temp: <n> }`, se retorna el valor y `source='OpenWeather'`.
 - **Fallback** → si falla el primario, se consulta Open‑Meteo y se retorna `{ temp: <n> }` con `source='Open-Meteo'`.
 - **Normalización** → `temp` siempre es numérico; `desc` es opcional.
@@ -181,8 +192,8 @@ npm run test:ci            # modo CI (secuencial)
 El diseño de pruebas unitarias de **Reservas Médicas** prioriza **fiabilidad, seguridad y reproducibilidad**. El uso de Jest con `jest-expo` y `axios-mock-adapter` permite validar autenticación, interceptores y consumo de APIs sin depender de servicios externos.  
 Este enfoque reduce regresiones, mejora la confianza en el código y facilita la integración continua del equipo.
 
-
 ---
+
 _Author: Cesar Misael Garcia Lopez_
 
 _Date: October 05, 2025_

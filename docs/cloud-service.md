@@ -3,7 +3,7 @@
 ## English Version
 
 **Add description of cloud database service and justification #6**
-  
+
 **Author:** Diego Sanchez Martinez  
 **Date:** October 05, 2025
 
@@ -47,7 +47,7 @@ For the "Medical Reservations" application, Supabase was selected for offering t
 ## Versión en Español
 
 **Add description of cloud database service and justification #6**
-  
+
 **Autor:** Diego Sanchez Martinez  
 **Fecha:** 05 de octubre de 2025
 
@@ -88,6 +88,6 @@ Para la aplicación "Reservas Médicas", Supabase fue seleccionado por ofrecer e
 
 #### Referencias Bibliográficas
 
-1. Documentación de Supabase. (2024). *Guía de Inicio con Supabase*. Recuperado de https://supabase.com/docs
-2. Repositorio GitHub de Supabase. (2024). *Librería Cliente Supabase JS*. Recuperado de https://github.com/supabase/supabase-js
-3. Documentación de PostgreSQL. (2024). *Documentación Oficial de PostgreSQL*. Recuperado de https://www.postgresql.org/docs/
+1. Documentación de Supabase. (2024). _Guía de Inicio con Supabase_. Recuperado de https://supabase.com/docs
+2. Repositorio GitHub de Supabase. (2024). _Librería Cliente Supabase JS_. Recuperado de https://github.com/supabase/supabase-js
+3. Documentación de PostgreSQL. (2024). _Documentación Oficial de PostgreSQL_. Recuperado de https://www.postgresql.org/docs/

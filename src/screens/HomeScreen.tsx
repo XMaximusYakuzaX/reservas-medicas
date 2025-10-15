@@ -93,9 +93,7 @@ export default function HomeScreen() {
           paddingVertical: 8,
         }}
       >
-        <Text style={{ fontSize: 22, fontWeight: '600' }}>
-          Bienvenido, {user?.name}
-        </Text>
+        <Text style={{ fontSize: 22, fontWeight: '600' }}>Bienvenido, {user?.name}</Text>
         {!!profileOk && <Text>{profileOk}</Text>}
       </View>
 

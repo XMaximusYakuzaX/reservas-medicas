@@ -8,10 +8,12 @@ El proyecto combina un **backend Node/Express** con su autenticación JWT y un *
 ## 📘 1. Descripción general del proyecto
 
 ### 🎯 Propósito
+
 Desarrollar una aplicación de reservas médicas integrando autenticación segura, almacenamiento de datos del perfil en la nube y consumo de APIs externas.  
 El proyecto sirve como práctica integral de **seguridad, integración de servicios en la nube y pruebas unitarias**.
 
 ### ⚙️ Objetivos
+
 - Implementar login seguro con **JSON Web Tokens (JWT)**.
 - Almacenar token de sesión en **Expo SecureStore**.
 - Conectar con un **backend Node/Express local**.
@@ -20,6 +22,7 @@ El proyecto sirve como práctica integral de **seguridad, integración de servic
 - Mostrar cálculos automáticos del **Índice de Masa Corporal (IMC)**.
 
 ### 🧩 Principales funcionalidades
+
 - Autenticación de usuario (`/auth/login` y `/profile`).
 - Registro y actualización de datos médicos (altura, peso, IMC).
 - Consulta meteorológica por ciudad.
@@ -32,13 +35,14 @@ El proyecto sirve como práctica integral de **seguridad, integración de servic
 
 El sistema se compone de dos módulos principales:
 
-| Módulo | Descripción |
-|--------|--------------|
+| Módulo                                   | Descripción                                                                   |
+| ---------------------------------------- | ----------------------------------------------------------------------------- |
 | **Frontend móvil (Expo + React Native)** | App principal que consume la API, gestiona la sesión y muestra las pantallas. |
-| **Backend local (Node/Express)** | API REST que maneja autenticación, validación de tokens y datos demo. |
+| **Backend local (Node/Express)**         | API REST que maneja autenticación, validación de tokens y datos demo.         |
 
-**Integraciones adicionales:**  
-- **Supabase:** base de datos y API para el perfil médico del usuario.  
+**Integraciones adicionales:**
+
+- **Supabase:** base de datos y API para el perfil médico del usuario.
 - **OpenWeather / Open-Meteo:** APIs externas para datos del clima.
 
 ---
@@ -83,25 +87,27 @@ reservas-medicas/
 ## 🧩 4. Dependencias principales
 
 ### Frontend
-| Librería | Uso |
-|-----------|-----|
-| **Expo / React Native** | Framework móvil base |
-| **@react-navigation/native** | Navegación entre pantallas |
-| **axios** | Llamadas HTTP |
-| **expo-secure-store** | Almacenamiento seguro del token |
-| **expo-constants** | Variables globales del entorno |
-| **react-native-reanimated** | Animaciones |
-| **react-native-safe-area-context** | Manejo seguro de áreas visuales |
-| **Supabase JS** | Interacción con base de datos en la nube |
+
+| Librería                           | Uso                                      |
+| ---------------------------------- | ---------------------------------------- |
+| **Expo / React Native**            | Framework móvil base                     |
+| **@react-navigation/native**       | Navegación entre pantallas               |
+| **axios**                          | Llamadas HTTP                            |
+| **expo-secure-store**              | Almacenamiento seguro del token          |
+| **expo-constants**                 | Variables globales del entorno           |
+| **react-native-reanimated**        | Animaciones                              |
+| **react-native-safe-area-context** | Manejo seguro de áreas visuales          |
+| **Supabase JS**                    | Interacción con base de datos en la nube |
 
 ### Backend
-| Librería | Uso |
-|-----------|-----|
-| **express** | Servidor HTTP principal |
-| **cors** | Permitir peticiones externas |
+
+| Librería         | Uso                          |
+| ---------------- | ---------------------------- |
+| **express**      | Servidor HTTP principal      |
+| **cors**         | Permitir peticiones externas |
 | **jsonwebtoken** | Generar y validar tokens JWT |
-| **bcryptjs** | Cifrado de contraseñas |
-| **nodemon** | Auto-reinicio en desarrollo |
+| **bcryptjs**     | Cifrado de contraseñas       |
+| **nodemon**      | Auto-reinicio en desarrollo  |
 
 ---
 
@@ -129,20 +135,23 @@ SUPABASE_ANON_KEY=<your-anon-key>
 ## 🧪 6. Instalación y ejecución
 
 ### 🔹 Requisitos previos
-- Node.js 18+ (recomendado 20 LTS)  
-- npm 9 o 10  
-- Expo CLI (`npm i -g expo-cli` o usar `npx expo`)  
+
+- Node.js 18+ (recomendado 20 LTS)
+- npm 9 o 10
+- Expo CLI (`npm i -g expo-cli` o usar `npx expo`)
 - Cuenta en OpenWeather (API Key)
 
 ---
 
 ### 🔹 Instalación del cliente (frontend)
+
 ```bash
 # Desde la raíz del proyecto
 npm install
 ```
 
 Si faltan dependencias:
+
 ```bash
 npm i axios jwt-decode @react-navigation/native @react-navigation/native-stack
 npx expo install expo-secure-store expo-constants react-native-screens react-native-safe-area-context react-native-reanimated
@@ -151,12 +160,14 @@ npx expo install expo-secure-store expo-constants react-native-screens react-nat
 ---
 
 ### 🔹 Instalación del backend
+
 ```bash
 cd server
 npm install
 ```
 
 Si no existe el `package.json`, puedes crearlo:
+
 ```bash
 npm init -y
 npm i express cors jsonwebtoken bcryptjs
@@ -164,6 +175,7 @@ npm i -D nodemon
 ```
 
 Agrega en el `package.json` del backend:
+
 ```json
 "scripts": {
   "dev": "nodemon index.js",
@@ -174,16 +186,20 @@ Agrega en el `package.json` del backend:
 ---
 
 ### 🔹 Ejecución del backend
+
 ```bash
 cd server
 npm run dev
 ```
+
 El servidor estará en:
+
 ```
 http://localhost:4000
 ```
 
 Credenciales demo:
+
 ```
 email: demo@med.app
 password: 123456
@@ -192,6 +208,7 @@ password: 123456
 ---
 
 ### 🔹 Ejecución de la app móvil
+
 ```bash
 npx expo start -c
 ```
@@ -204,13 +221,13 @@ npx expo start -c
 
 ## 🧾 7. Scripts útiles
 
-| Comando | Descripción |
-|----------|--------------|
-| `npm start` | Inicia el proyecto Expo |
-| `npm run build` | Compila el proyecto |
-| `npm run lint` | Linter del código |
-| `npm run test` | Ejecuta pruebas (cuando se implementen) |
-| `npm run dev` (en `server/`) | Inicia el backend con nodemon |
+| Comando                      | Descripción                             |
+| ---------------------------- | --------------------------------------- |
+| `npm start`                  | Inicia el proyecto Expo                 |
+| `npm run build`              | Compila el proyecto                     |
+| `npm run lint`               | Linter del código                       |
+| `npm run test`               | Ejecuta pruebas (cuando se implementen) |
+| `npm run dev` (en `server/`) | Inicia el backend con nodemon           |
 
 ---
 
@@ -219,25 +236,26 @@ npx expo start -c
 La app calcula automáticamente el **Índice de Masa Corporal (IMC)** a partir de la altura y el peso registrados.
 
 ```ts
-bmi = weight_kg / ((height_cm / 100) ** 2)
+bmi = weight_kg / (height_cm / 100) ** 2;
 ```
 
 Categorías:
-- <18.5 → Bajo peso  
-- 18.5–24.9 → Normal  
-- 25–29.9 → Sobrepeso  
+
+- <18.5 → Bajo peso
+- 18.5–24.9 → Normal
+- 25–29.9 → Sobrepeso
 - ≥30 → Obesidad
 
 ---
 
 ## 🧰 9. Solución de errores comunes
 
-| Error | Causa | Solución |
-|--------|--------|-----------|
-| **Network request failed** | IP incorrecta o puerto cerrado | Usa la IP LAN real y abre el puerto 4000 |
-| **Invalid API key** | API de OpenWeather aún no activa | Esperar 1–2 horas después de crear la key |
-| **Error 401** | Token expirado | Cerrar sesión y volver a iniciar |
-| **Puerto 8081 ocupado** | Conflicto con Metro Bundler | Permitir otro puerto o cerrar procesos anteriores |
+| Error                      | Causa                            | Solución                                          |
+| -------------------------- | -------------------------------- | ------------------------------------------------- |
+| **Network request failed** | IP incorrecta o puerto cerrado   | Usa la IP LAN real y abre el puerto 4000          |
+| **Invalid API key**        | API de OpenWeather aún no activa | Esperar 1–2 horas después de crear la key         |
+| **Error 401**              | Token expirado                   | Cerrar sesión y volver a iniciar                  |
+| **Puerto 8081 ocupado**    | Conflicto con Metro Bundler      | Permitir otro puerto o cerrar procesos anteriores |
 
 ---
 
@@ -266,4 +284,4 @@ Todos los nombres de APIs y servicios externos pertenecen a sus respectivos prop
 
 ---
 
-**Repositorio:** [https://github.com/MaximusYakuza/reservas-medicas](https://github.com/MaximusYakuza/reservas-medicas)  
+**Repositorio:** [https://github.com/MaximusYakuza/reservas-medicas](https://github.com/MaximusYakuza/reservas-medicas)
