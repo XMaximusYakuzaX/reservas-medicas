@@ -8,7 +8,7 @@ import { RootStackParamList } from '../navigation/AppNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'VerifyOTP'>;
 
 export default function VerifyOTPScreen({ route, navigation }: Props) {
-  const { verificationId } = route.params; 
+  const { verificationId } = route.params;
   const [code, setCode] = useState('');
 
   const handleVerify = async () => {
