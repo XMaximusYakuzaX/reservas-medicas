@@ -3,9 +3,9 @@ name: Security – ZAP Baseline & API Scan
 on:
   pull_request:
     paths:
-      - "server/**"
-      - "docs/testing/**"
-      - ".github/workflows/zap.yml"
+      - 'server/**'
+      - 'docs/testing/**'
+      - '.github/workflows/zap.yml'
   workflow_dispatch: {}
 
 jobs:
@@ -20,9 +20,9 @@ jobs:
       - name: 🟦 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: "server/package-lock.json"
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'server/package-lock.json'
 
       - name: 📦 Install backend deps
         working-directory: server
