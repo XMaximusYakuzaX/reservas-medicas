@@ -1,5 +1,6 @@
-**Issue:** #47
-**Author:** Saul Israel Cid Dominguez
+# Research Report: API Security and Data Encryption
+
+**Author:** Saul Israel Cid Dominguez  
 **Date:** October 16, 2025
 
 ## Executive Summary
@@ -31,8 +32,9 @@ This document presents research on security best practices applicable to the "Me
 - **Current Flow (Supabase):**
   - \*The flow is robust and standard: the
 
-**Issue:** #47
-**Autor:** Saul Israel Cid Dominguez
+# Informe de Investigación: Seguridad de API y Cifrado de Datos
+
+**Autor:** Saul Israel Cid Dominguez  
 **Fecha:** 16 de octubre de 2025
 
 ## Resumen Ejecutivo
