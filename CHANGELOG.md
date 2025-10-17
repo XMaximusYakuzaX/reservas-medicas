@@ -2,6 +2,12 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [1.3.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.2.0...v1.3.0) (2025-10-17)
+
+### ✨ Features
+
+- implement consent mechanisms and data rights for personal data treatment ([#71](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/71)) ([7a19f70](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/7a19f70289ece13c1ecf3c48055e81a987a58d93)), closes [#55](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/55)
+
 ## [1.2.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.1.0...v1.2.0) (2025-10-17)
 
 ### ✨ Features
