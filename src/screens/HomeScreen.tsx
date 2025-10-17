@@ -5,10 +5,14 @@ import { Alert, Button, Text, TextInput, View } from 'react-native';
 import { getProfile } from '../api/auth';
 import { computeBMI, getProfileByEmail, upsertProfile } from '../api/profiles';
 import { useAuth } from '../auth/useAuth';
+import { signOut } from 'firebase/auth';
+import { auth } from '../auth/firebaseConfig';
+import { clearToken } from '../auth/secureStore';
 
 type RootStackParamList = {
   Profile: undefined;
   Weather: undefined;
+  VerifyOTP: undefined; // nueva pantalla MFA
 };
 
 export default function HomeScreen() {
@@ -23,6 +27,9 @@ export default function HomeScreen() {
   const [height, setHeight] = useState<string>(''); // cm
   const [weight, setWeight] = useState<string>(''); // kg
   const [bmiText, setBmiText] = useState<string>('');
+
+  // Estado del MFA (solo si usas autenticación por teléfono o correo OTP)
+  const [mfaEnabled, setMfaEnabled] = useState<boolean>(false);
 
   // --- Helpers ---
   const recalc = useMemo(
@@ -68,6 +75,7 @@ export default function HomeScreen() {
     })();
   }, [email]);
 
+  // Guardar perfil
   const onSave = async () => {
     try {
       if (!email) return Alert.alert('Error', 'No hay email de usuario.');
@@ -91,11 +99,23 @@ export default function HomeScreen() {
     }
   };
 
+  // Cerrar sesión de manera segura
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // cerrar sesión en Firebase
+      await clearToken('userToken'); // limpiar token local
+      logout(); // actualizar contexto global
+      Alert.alert('Sesión cerrada', 'Has cerrado sesión correctamente.');
+    } catch (error: any) {
+      Alert.alert('Error al cerrar sesión', error.message);
+    }
+  };
+
   return (
     <View style={{ flex: 1, padding: 16, gap: 16 }}>
       {/* Encabezado de bienvenida */}
       <View style={{ alignItems: 'center', gap: 8, paddingVertical: 8 }}>
-        <Text style={{ fontSize: 22, fontWeight: '600' }}>Bienvenido, {user?.name}</Text>
+        <Text style={{ fontSize: 22, fontWeight: '600' }}>Bienvenido, {user?.name ?? 'Usuario'}</Text>
         {!!profileOk && <Text>{profileOk}</Text>}
       </View>
 
@@ -103,7 +123,16 @@ export default function HomeScreen() {
       <View style={{ gap: 12 }}>
         <Button title="Ir a mi Perfil" onPress={() => navigation.navigate('Profile')} />
         <Button title="Ver clima" onPress={() => navigation.navigate('Weather')} />
-        <Button title="Cerrar sesión" onPress={logout} />
+
+        {mfaEnabled && (
+          <Button
+            title="Verificar código MFA"
+            onPress={() => navigation.navigate('VerifyOTP')}
+            color="#4A90E2"
+          />
+        )}
+
+        <Button title="Cerrar sesión" onPress={handleLogout} color="#E74C3C" />
       </View>
 
       {/* Separador */}
