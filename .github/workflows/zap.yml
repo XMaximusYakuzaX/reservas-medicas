@@ -1,0 +1,93 @@
+name: Security – ZAP Baseline & API Scan
+
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+      - 'docs/testing/**'
+      - '.github/workflows/zap.yml'
+  workflow_dispatch: {}
+
+jobs:
+  zap_scans:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 🧩 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'server/package-lock.json'
+
+      - name: 📦 Install backend deps
+        working-directory: server
+        run: npm ci
+
+      - name: 🔧 Create .env (CI)
+        working-directory: server
+        run: |
+          cat > .env <<'EOF'
+          PORT=4000
+          JWT_SECRET=ci_secret
+          # orígenes permitidos para CORS en CI (ajusta si tu app web usa otro puerto)
+          CORS_ORIGINS=http://localhost:19006,http://127.0.0.1:19006
+          EOF
+
+      - name: 🚀 Start API on :4000 (background)
+        working-directory: server
+        run: |
+          nohup node index.js > ../api.log 2>&1 &
+          echo $! > ../server.pid
+
+      - name: ⏳ Wait for port 4000
+        run: |
+          for i in {1..40}; do
+            curl -fsS http://localhost:4000/ >/dev/null && echo "API is up" && exit 0
+            sleep 2
+          done
+          echo "API did not start in time"; echo "--- server logs ---"; cat api.log; exit 1
+
+      - name: 🐳 Pull ZAP image
+        run: docker pull ghcr.io/zaproxy/zaproxy:stable
+
+      - name: 🧪 ZAP Baseline (localhost)
+        run: |
+          mkdir -p docs/testing/security-reports
+          docker run --rm --network host \
+            -v "${GITHUB_WORKSPACE}:/zap/wrk" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+            -t http://localhost:4000 \
+            -r docs/testing/security-reports/zap-baseline-report.html \
+            -d -I || true
+
+      - name: 🧪 ZAP API Scan (OpenAPI)
+        run: |
+          # usamos la spec con localhost para CI
+          SPEC_PATH="/zap/wrk/docs/testing/api/openapi.yaml"
+          if [ -f "docs/testing/api/openapi.ci.yaml" ]; then
+            SPEC_PATH="/zap/wrk/docs/testing/api/openapi.ci.yaml"
+          fi
+          docker run --rm --network host \
+            -v "${GITHUB_WORKSPACE}:/zap/wrk" ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py \
+            -t "${SPEC_PATH}" \
+            -f openapi \
+            -r docs/testing/security-reports/zap-api-report.html \
+            -d -I || true
+
+      - name: 📤 Upload ZAP reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-reports
+          path: |
+            docs/testing/security-reports/zap-baseline-report.html
+            docs/testing/security-reports/zap-api-report.html
+
+      - name: 🛑 Stop API & show logs on failure
+        if: always()
+        run: |
+          if [ -f server.pid ]; then kill $(cat server.pid) || true; fi
+          echo "--- server logs ---"; test -f api.log && tail -n 200 api.log || true
