@@ -1,76 +1,114 @@
-# DevOps Architecture, Design, and Results – Reservas Médicas
+# 🧩 DevOps Architecture, Design, and Results / Arquitectura, Diseño y Resultados DevOps
 
-## 1. Overview
+**Autor / Author:** Mauro Morales Alta  
+**Fecha / Date:** 17 de octubre de 2025
 
+---
+
+## 1. Overview / Visión General
+
+**English:**  
 This document summarizes the DevSecOps architecture, design decisions, compliance integration, and testing outcomes.
 
-## 2. Security Design
+**Español:**  
+Este documento resume la arquitectura DevSecOps, las decisiones de diseño, la integración de cumplimiento normativo y los resultados de las pruebas.
 
-### Authentication & Sessions
+---
 
-- Endpoint `/auth/login` validated by OWASP ZAP (no vulnerabilities).
-- JWT tokens with short expiration and refresh rotation.
-- MFA planned for privileged roles.
+## 2. Security Design / Diseño de Seguridad
 
-### Encryption
+### 🔐 Authentication & Sessions / Autenticación y Sesiones
 
-- TLS 1.3 enforced; pinning for mobile pending.
-- AES-256 used for sensitive data at rest.
-- No hardcoded secrets (managed in `.env` and KMS).
+- Endpoint `/auth/login` validado por OWASP ZAP (sin vulnerabilidades).
+- Tokens JWT con expiración corta y rotación de actualización.
+- MFA planificado para roles privilegiados.
 
-### Authorization & RBAC
+### 🔒 Encryption / Cifrado
 
-| Role    | Permissions                |
-| ------- | -------------------------- |
-| Patient | CRUD on own appointments   |
-| Doctor  | Access assigned patients   |
-| Admin   | System configuration, logs |
+- TLS 1.3 aplicado; el pinning para móviles está pendiente.
+- AES-256 utilizado para datos sensibles en reposo.
+- Sin secretos codificados (gestionados en `.env` y KMS).
 
-### Secure Headers
+### 🧾 Authorization & RBAC / Autorización y Control de Accesos
 
-- `Cache-Control: no-store` (detected by ZAP, correct behavior).
-- HSTS and CSP configured for production builds.
+| Rol / Role            | Permisos / Permissions                                                |
+| --------------------- | --------------------------------------------------------------------- |
+| Paciente / Patient    | CRUD en sus propias citas / CRUD on own appointments                  |
+| Doctor / Doctor       | Acceso a pacientes asignados / Access assigned patients               |
+| Administrador / Admin | Configuración del sistema y registros / System configuration and logs |
 
-## 3. Compliance Integration
+### 🧱 Secure Headers / Encabezados Seguros
+
+- `Cache-Control: no-store` (detectado por ZAP, comportamiento correcto).
+- HSTS y CSP configurados para entornos de producción.
+
+---
+
+## 3. Compliance Integration / Integración de Cumplimiento
+
+**English:**
 
 - GDPR and CCPA controls documented (see `privacy-compliance.md`).
 - Consent and erasure flows defined.
 - Audit logs capture data access, exports, and deletions.
 
+**Español:**
+
+- Controles de GDPR y CCPA documentados (ver `privacy-compliance.md`).
+- Flujos de consentimiento y eliminación definidos.
+- Los registros de auditoría capturan accesos, exportaciones y eliminaciones de datos.
+
+---
+
 ## 4. DevSecOps Pipeline (CI/CD)
 
-| Stage     | Tool                              | Purpose                 |
-| --------- | --------------------------------- | ----------------------- |
-| Lint/Test | ESLint + Jest                     | Code quality            |
-| SAST      | CodeQL                            | Static analysis         |
-| DAST      | OWASP ZAP                         | Vulnerability scan      |
-| Perf      | k6                                | Load and stress testing |
-| Release   | GitHub Actions + Semantic Release | Automated versioning    |
+| Etapa / Stage | Herramienta / Tool                | Propósito / Purpose                                 |
+| ------------- | --------------------------------- | --------------------------------------------------- |
+| Lint/Test     | ESLint + Jest                     | Calidad del código / Code quality                   |
+| SAST          | CodeQL                            | Análisis estático / Static analysis                 |
+| DAST          | OWASP ZAP                         | Escaneo de vulnerabilidades / Vulnerability scan    |
+| Perf          | k6                                | Pruebas de carga y estrés / Load and stress testing |
+| Release       | GitHub Actions + Semantic Release | Versionado automático / Automated versioning        |
 
-### Workflow
+### ⚙️ Workflow / Flujo de Trabajo
 
-1. Push → Lint/Test → Security scans
-2. Pull Request → k6 load test → Review
-3. Merge to main → Auto release via semantic versioning
+1. **Push → Lint/Test → Security Scans**
+2. **Pull Request → Prueba de carga con k6 → Revisión**
+3. **Merge a main → Liberación automática mediante semantic versioning**
 
-## 5. Observability
+---
 
-- Logs: Winston + Supabase logs.
-- Metrics: Request latency, error rate, uptime.
-- Alerts: via Grafana or Sentry webhook integration.
+## 5. Observability / Observabilidad
 
-## 6. Test Results Summary
+- **Logs:** Winston + registros de Supabase.
+- **Métricas:** Latencia de peticiones, tasa de errores, disponibilidad.
+- **Alertas:** Integración con Grafana o Sentry vía webhooks.
 
-| Test Type  | Tool         | Result                                    |
-| ---------- | ------------ | ----------------------------------------- |
-| Pentest    | OWASP ZAP    | 0 High, 0 Medium, 0 Low (2 Informational) |
-| Load       | k6           | P95 < 300 ms, error rate < 1%             |
-| Stress     | k6           | System stable up to 100 VUs               |
-| Compliance | Manual check | 100% controls implemented                 |
+---
 
-## 7. Future Work
+## 6. Test Results Summary / Resumen de Resultados de Pruebas
+
+| Tipo de Prueba / Test Type | Herramienta / Tool | Resultado / Result                                                                   |
+| -------------------------- | ------------------ | ------------------------------------------------------------------------------------ |
+| Pentest                    | OWASP ZAP          | 0 Alta, 0 Media, 0 Baja (2 Informativas) / 0 High, 0 Medium, 0 Low (2 Informational) |
+| Carga / Load               | k6                 | P95 < 300 ms, tasa de error < 1%                                                     |
+| Estrés / Stress            | k6                 | Sistema estable hasta 100 VUs / Stable up to 100 VUs                                 |
+| Cumplimiento / Compliance  | Manual             | 100% de controles implementados / 100% controls implemented                          |
+
+---
+
+## 7. Future Work / Trabajo Futuro
+
+**English:**
 
 - Integrate MFA fully.
 - Implement mobile certificate pinning.
 - Automate ZAP and k6 into CI workflow.
 - Expand observability dashboards.
+
+**Español:**
+
+- Integrar completamente MFA.
+- Implementar pinning de certificados móviles.
+- Automatizar ZAP y k6 en el flujo CI.
+- Ampliar los tableros de observabilidad.
