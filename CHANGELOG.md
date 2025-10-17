@@ -2,6 +2,19 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [1.2.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.1.0...v1.2.0) (2025-10-17)
+
+### ✨ Features
+
+- **security:** Pentest & Vulnerability Scanning Reports ([#70](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/70)) ([f0ea207](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/f0ea2070dbee03b28942d64678719b3ad3d4144c)), closes [#56](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/56) [#56](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/56)
+
+### 📝 Documentation
+
+- add compliance and privacy documentation ([#63](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/63)) ([9e643a9](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/9e643a998ad8dbd3e272ff37a27e2a0894947849)), closes [#48](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/48)
+- Add documentation for penetration, performance, and compliance testing tools ([#67](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/67)) ([4d8b7e1](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/4d8b7e18aa7de742d00b6b9983cd2666999ea68b)), closes [#51](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/51)
+- add modular structure for security architecture research ([#62](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/62)) ([584702d](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/584702d582faf452e0aa179913b1a645de61c507)), closes [#44](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/44)
+- **threat-modeling:** add Threat Modeling and Security by Design documentation ([#66](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/66)) ([2e7687a](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/2e7687aaf5b6f1fbed79d25d634c78ed3a98196d)), closes [#45](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/45)
+
 ## [1.1.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.0.1...v1.1.0) (2025-10-15)
 
 ### ✨ Features
