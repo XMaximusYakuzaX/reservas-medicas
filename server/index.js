@@ -3,12 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const helmet = require('helmet'); // ⬅️ nuevo
+const helmet = require('helmet'); // ⬅️ seguridad base
 
 const app = express();
 
 /* ===== Seguridad base ===== */
-app.disable('x-powered-by'); // oculta el stack (mitiga 10037)
+app.disable('x-powered-by'); // oculta stack
 
 /** Helmet: CSP, frameguard, nosniff */
 app.use(
@@ -26,7 +26,7 @@ app.use(
   })
 );
 
-/** Permissions-Policy + no-cache (mitiga 10063 y 10049) */
+/** Permissions-Policy + no-cache (coincide con hallazgos ZAP informativos) */
 app.use((req, res, next) => {
   res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 
-/** CORS restringido (mitiga CORS permisivo) */
+/** CORS restringido (dev: Expo) */
 const ALLOWED_ORIGINS = (
   process.env.CORS_ORIGINS || 'http://localhost:19006,http://127.0.0.1:19006'
 )
@@ -56,7 +56,7 @@ app.use(
 
 app.use(express.json());
 
-/* ===== Healthcheck para evitar 404 en la raíz ===== */
+/* ===== Healthcheck ===== */
 app.get('/', (_req, res) => {
   res.json({ ok: true, service: 'Reservas Médicas API', version: '1.0.0' });
 });
@@ -98,7 +98,7 @@ app.get('/profile', authGuard, (_req, res) => {
   res.json({ id: fakeUser.id, email: fakeUser.email, name: fakeUser.name });
 });
 
-/* ===== 404 y errores SIEMPRE en JSON (evita text/html) ===== */
+/* ===== 404 y errores SIEMPRE en JSON ===== */
 app.use((req, res) => {
   res.status(404).type('application/json').json({ error: 'Not found', path: req.originalUrl });
 });
@@ -114,4 +114,5 @@ app.use((err, req, res, next) => {
 
 /* ===== Start ===== */
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, '0.0.0.0', () => console.log(`Auth API en http://localhost:${PORT}`));
+const HOST = '0.0.0.0'; // ⬅️ clave para que Docker (k6) acceda desde host.docker.internal
+app.listen(PORT, HOST, () => console.log(`Auth API en http://${HOST}:${PORT}`));
