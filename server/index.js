@@ -10,6 +10,10 @@ const { metricsMiddleware } = require('./middleware/metricsMiddleware');
 
 const app = express();
 
+// Example usage if these are routers/middleware
+app.use(metricsMiddleware);
+app.use('/metrics', metricsRouter);
+
 /* ===== Seguridad base ===== */
 app.disable('x-powered-by'); // oculta el stack (mitiga 10037)
 
