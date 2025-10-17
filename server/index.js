@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const helmet = require('helmet'); // ⬅️ nuevo
 
+const { metricsRouter } = require('./metrics');
+const { metricsMiddleware } = require('./middleware/metricsMiddleware');
+
 const app = express();
 
 /* ===== Seguridad base ===== */
@@ -56,6 +59,9 @@ app.use(
 
 app.use(express.json());
 
+// 🔹 NUEVO: métricas de rendimiento
+app.use(metricsMiddleware);
+
 /* ===== Healthcheck para evitar 404 en la raíz ===== */
 app.get('/', (_req, res) => {
   res.json({ ok: true, service: 'Reservas Médicas API', version: '1.0.0' });
@@ -97,6 +103,9 @@ function authGuard(req, res, next) {
 app.get('/profile', authGuard, (_req, res) => {
   res.json({ id: fakeUser.id, email: fakeUser.email, name: fakeUser.name });
 });
+
+// 🔹 NUEVO: endpoint /metrics
+app.use('/metrics', metricsRouter);
 
 /* ===== 404 y errores SIEMPRE en JSON (evita text/html) ===== */
 app.use((req, res) => {
