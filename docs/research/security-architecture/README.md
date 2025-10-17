@@ -11,7 +11,7 @@ Each topic is documented in its own Markdown file for clarity and modularity.
 - [🔑 Multi-Factor Authentication (MFA) and Session Management](./mfa-and-session-management.md)
 - [🔒 API Security and Data Encryption](./api-security-and-encryption.md)
 - [⚖️ Legal Compliance and Privacy](./compliance-and-privacy.md)
-- [🚀 DevSecOps and Modern CI/CD](./devsecops-and-cicd.md)
+- [🚀 DevSecOps and Modern CI/CD](./dev-sec-ops-and-ci-cd.md)
 - [📊 Observability and Monitoring](./observability-and-monitoring.md)
 - [🧪 Testing and Analysis Tools](./testing-and-analysis.md)
 - [🌐 Emerging Trends](./emerging-trends.md)

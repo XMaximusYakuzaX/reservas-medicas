@@ -2,6 +2,24 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [1.4.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.3.0...v1.4.0) (2025-10-17)
+
+### ✨ Features
+
+- add crypto service for data-at-rest encryption ([#79](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/79)) ([b9b535d](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/b9b535d191a4c6eb733af3d358399e88d21040b0)), closes [#54](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/54)
+
+### 📝 Documentation
+
+- add observability and monitoring research ([#74](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/74)) ([e5b7e8c](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/e5b7e8c7b7d9c1d75f951bc4001f9e65bf44d875)), closes [#50](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/50) [#50](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/50)
+- API Security and Encryption Research ([#72](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/72)) ([3befc70](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/3befc7093f24c3e890e0fa270e28f415af003305)), closes [#47](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/47)
+- Multi-Factor Authentication and Session Management ([#76](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/76)) ([61480d5](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/61480d5d9d420f70bfbad34b33777a9532f21d67)), closes [#46](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/46)
+- **security-architecture:** add dev-sec-ops-and-ci-cd file ([#75](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/75)) ([0dbc9c5](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/0dbc9c5147b9ce03143ec95e0353c12f442267c9)), closes [#49](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/49)
+
+### ✅ Tests
+
+- Add stress and performance testing results ([#77](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/77)) ([ac17e06](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/ac17e0627a4c2050acbe09ac255334fb414afd23)), closes [#51](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/51) [#56](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/56) [#57](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/57) [#56](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/56) [#57](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/57) [#57](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/57)
+- Compliance and Privacy Testing ([#73](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/73)) ([82d43d5](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/82d43d5c5e6ed5f8d1e3abee0d41836ec3515e41)), closes [#58](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/58)
+
 ## [1.3.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.2.0...v1.3.0) (2025-10-17)
 
 ### ✨ Features

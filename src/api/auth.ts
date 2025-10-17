@@ -1,48 +1,32 @@
 // src/api/auth.ts
-import * as SecureStore from 'expo-secure-store';
-import http from './http';
-import type { AxiosError } from 'axios';
+import { http } from './http'; // 👈 Asegúrate que la importación de http sea correcta
 
-export async function login(credentials: { email: string; password: string }) {
+// Definimos los tipos para que nuestro código sea más seguro
+type User = { id: number; name: string; email: string };
+type LoginResponse = { token: string; user: User };
+
+/**
+ * Llama al endpoint de login y devuelve el token y el usuario.
+ * No guarda nada, solo devuelve los datos.
+ */
+export async function loginApi(credentials: {
+  email: string;
+  password: string;
+}): Promise<LoginResponse> {
   try {
-    const { data } = await http.post('/auth/login', credentials);
-
-    if (data?.token) {
-      await SecureStore.setItemAsync('token', data.token);
-    }
-    if (data?.user) {
-      await SecureStore.setItemAsync('user', JSON.stringify(data.user));
-    }
-
+    const { data } = await http.post<LoginResponse>('/auth/login', credentials);
     return data;
-  } catch (error: unknown) {
-    if (isAxiosError(error)) {
-      throw error.response?.data || { message: 'Login failed' };
-    }
-    throw { message: 'Login failed' };
+  } catch (error) {
+    // Aquí puedes manejar errores de Axios si quieres, pero por ahora lo mantenemos simple
+    console.error('Login API error:', error);
+    throw new Error('Email o contraseña incorrectos.');
   }
 }
 
-export const getProfile = async () => {
-  try {
-    const { data } = await http.get('/profile');
-    return data;
-  } catch (error: unknown) {
-    if (isAxiosError(error)) {
-      throw error.response?.data || { message: 'Failed to fetch profile' };
-    }
-    throw { message: 'Failed to fetch profile' };
-  }
-};
-
-export async function logout() {
-  await SecureStore.deleteItemAsync('token');
-  await SecureStore.deleteItemAsync('user');
+/**
+ * Llama al endpoint de perfil para obtener los datos del usuario.
+ */
+export async function getProfileApi(): Promise<User> {
+  const { data } = await http.get<User>('/profile');
+  return data;
 }
-
-// Helper para detectar errores de Axios
-function isAxiosError(error: unknown): error is AxiosError {
-  return typeof error === 'object' && error !== null && 'isAxiosError' in error;
-}
-
-export default { login, getProfile, logout };
