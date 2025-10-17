@@ -2,6 +2,17 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [1.5.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.4.0...v1.5.0) (2025-10-17)
+
+### ✨ Features
+
+- **auth:** add multi-factor authentication (MFA) ([#82](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/82)) ([96cf09a](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/96cf09a208038e66bcd5f09fd059e183960b8f50)), closes [#53](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/53) [#53](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/53)
+
+### 📝 Documentation
+
+- **report:** add DevOps architecture report ([#83](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/83)) ([725dae9](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/725dae9ee53ca2d6ba2061b223ca8a859df19f0f)), closes [#59](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/59)
+- **security-architecture:** add emerging-trends file and update api-security-and-encription file ([#78](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/78)) ([8b5673a](https://github.com/XMaximusYakuzaX/reservas-medicas/commit/8b5673a7bf656859fb25b5ba8e27295f2d960fd7)), closes [#52](https://github.com/XMaximusYakuzaX/reservas-medicas/issues/52)
+
 ## [1.4.0](https://github.com/XMaximusYakuzaX/reservas-medicas/compare/v1.3.0...v1.4.0) (2025-10-17)
 
 ### ✨ Features
