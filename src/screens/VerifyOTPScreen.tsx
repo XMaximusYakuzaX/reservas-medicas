@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { auth } from '../auth/firebaseConfig';
 import { verifyOTP } from '../auth/mfaService';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/AppNavigator';
 
-export default function VerifyOTPScreen({ route, navigation }: any) {
-  const { verificationId } = route.params;
+type Props = NativeStackScreenProps<RootStackParamList, 'VerifyOTP'>;
+
+export default function VerifyOTPScreen({ route, navigation }: Props) {
+  const { verificationId } = route.params; 
   const [code, setCode] = useState('');
 
   const handleVerify = async () => {
     try {
       await verifyOTP(auth, verificationId, code);
       Alert.alert('Éxito', 'Verificación completada');
-      navigation.replace('HomeScreen');
-    } catch (error: any) {
-      Alert.alert('Error', error.message);
+      navigation.replace('Home');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        Alert.alert('Error', error.message);
+      } else {
+        Alert.alert('Error', 'Ocurrió un error desconocido durante la verificación.');
+      }
     }
   };
 

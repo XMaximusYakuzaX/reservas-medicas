@@ -29,7 +29,8 @@ export default function HomeScreen() {
   const [bmiText, setBmiText] = useState<string>('');
 
   // Estado del MFA (solo si usas autenticación por teléfono o correo OTP)
-  const [mfaEnabled, setMfaEnabled] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [mfaEnabled, _setMfaEnabled] = useState<boolean>(false);
 
   // --- Helpers ---
   const recalc = useMemo(
@@ -106,8 +107,12 @@ export default function HomeScreen() {
       await clearToken('userToken'); // limpiar token local
       logout(); // actualizar contexto global
       Alert.alert('Sesión cerrada', 'Has cerrado sesión correctamente.');
-    } catch (error: any) {
-      Alert.alert('Error al cerrar sesión', error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        Alert.alert('Error al cerrar sesión', error.message);
+      } else {
+        Alert.alert('Error al cerrar sesión', 'Ocurrió un error desconocido.');
+      }
     }
   };
 

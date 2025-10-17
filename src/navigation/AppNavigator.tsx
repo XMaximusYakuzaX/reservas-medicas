@@ -11,7 +11,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 
 export type RootStackParamList = {
   Login: undefined;
-  VerifyOTP: undefined;
+  VerifyOTP: { verificationId: string };
   Home: undefined;
   Weather: undefined;
   Profile: undefined;
