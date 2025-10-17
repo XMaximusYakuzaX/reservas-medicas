@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const helmet = require('helmet'); // ⬅️ seguridad base
 
+const { metricsRouter } = require('./metrics');
+const { metricsMiddleware } = require('./middleware/metricsMiddleware');
+
 const app = express();
 
 /* ===== Seguridad base ===== */
