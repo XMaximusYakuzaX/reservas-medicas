@@ -115,7 +115,9 @@ export default function HomeScreen() {
     <View style={{ flex: 1, padding: 16, gap: 16 }}>
       {/* Encabezado de bienvenida */}
       <View style={{ alignItems: 'center', gap: 8, paddingVertical: 8 }}>
-        <Text style={{ fontSize: 22, fontWeight: '600' }}>Bienvenido, {user?.name ?? 'Usuario'}</Text>
+        <Text style={{ fontSize: 22, fontWeight: '600' }}>
+          Bienvenido, {user?.name ?? 'Usuario'}
+        </Text>
         {!!profileOk && <Text>{profileOk}</Text>}
       </View>
 

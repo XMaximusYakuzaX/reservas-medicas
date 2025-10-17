@@ -29,11 +29,7 @@ export default function AppNavigator() {
       <Stack.Navigator>
         {!token ? (
           <>
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen
               name="VerifyOTP"
               component={VerifyOTPScreen}
@@ -42,12 +38,8 @@ export default function AppNavigator() {
           </>
         ) : (
           <>
-            <Stack.Screen
-              name="Home" component={HomeScreen} options={{ title: 'Inicio' }}
-            />
-            <Stack.Screen
-              name="Weather" component={WeatherScreen} options={{ title: 'Weather' }}
-            />
+            <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Inicio' }} />
+            <Stack.Screen name="Weather" component={WeatherScreen} options={{ title: 'Weather' }} />
             <Stack.Screen
               name="Profile"
               component={ProfileScreen}
