@@ -24,22 +24,22 @@ La observabilidad es la capacidad de inferir el estado interno de un sistema a p
 ## Los Tres Pilares de la Observabilidad: Métricas, Logs y Trazas
 
 1. **Métricas:** Son medidas numéricas de un sistema en un punto específico en el tiempo. Son ideales para responder preguntas como "¿Qué está pasando?".
-   - *Ejemplo en móvil:* Tasa de frames por segundo (FPS), uso de memoria RAM de la app, porcentaje de fallos (crash rate), latencia de API, número de usuarios activos.
+   - _Ejemplo en móvil:_ Tasa de frames por segundo (FPS), uso de memoria RAM de la app, porcentaje de fallos (crash rate), latencia de API, número de usuarios activos.
 
 2. **Logs:** Son eventos discretos con una marca de tiempo que describen lo que sucedió en el sistema. Son ideales para responder "¿Por qué pasó?".
-   - *Ejemplo en móvil:* Excepción NullPointerException en la pantalla de perfil, log de la respuesta JSON de una API, mensaje de depuración al abrir un archivo.
+   - _Ejemplo en móvil:_ Excepción NullPointerException en la pantalla de perfil, log de la respuesta JSON de una API, mensaje de depuración al abrir un archivo.
 
 3. **Trazas (Traces):** Representan el recorrido de una sola solicitud a través de múltiples servicios. Son ideales para responder "¿Cuál fue el camino y dónde estuvo el cuello de botella?".
-   - *Ejemplo en móvil:* El viaje de un "tap" en el botón "Comprar" a través de la app, el gateway de pago, el microservicio de inventario y la base de datos.
+   - _Ejemplo en móvil:_ El viaje de un "tap" en el botón "Comprar" a través de la app, el gateway de pago, el microservicio de inventario y la base de datos.
 
 ## Herramientas más usadas
 
-| Herramienta | Tipo de Herramienta | Función Principal | ¿Qué dato maneja? | Rol en el Ecosistema Móvil | Ejemplo de Uso en Móvil |
-|-------------|---------------------|-------------------|-------------------|----------------------------|-------------------------|
-| **OpenTelemetry (OTel)** | SDK / Estándar (No es un backend) | Instrumentación y Exportación de datos. Proporciona APIs y librerías para generar y enviar telemetría de forma estandarizada. | Métricas, Trazas y Logs (los tres pilares). | Se integra directamente en el código de la app móvil para recolectar datos de forma unificada. Es el "cómo" se recoge la data. | Instrumentar una solicitud de red para medir su latencia y crear una traza de la transacción "Abrir Perfil de Usuario". |
-| **Prometheus** | Base de Datos / Recolector | Almacenamiento y consulta de métricas numéricas. Recoge, almacena y permite consultar (con PromQL) datos de series de tiempo. | Métricas (exclusivamente). | Recibe las métricas exportadas por el Collector de OTel (ej: tasa de crashes, uso de memoria, latencia de API). | Almacenar la métrica `app_crash_total` para calcular la tasa de fallos y trigger de alertas. |
-| **ELK Stack** | Plataforma de Análisis | Ingestión, almacenamiento y búsqueda de datos logísticos. Es la solución clásica y poderosa para el análisis de logs. | Logs (su especialidad principal). | Recibe los logs estructurados (ej. errores, excepciones, eventos de negocio) exportados por el Collector de OTel. | Buscar todos los logs que contengan "NullPointerException" en la versión 2.1.0 de la app para priorizar un hotfix. |
-| **Grafana** | Herramienta de Visualización | Visualización y agregación de datos en paneles (dashboards). No almacena datos, se conecta a otras fuentes. | Métricas, Logs, Trazas (de cualquier fuente). | Une todo. Crea paneles unificados conectándose a Prometheus (métricas), ELK (logs) y otros backends para dar una visión 360º de la salud de la app. | Mostrar en un solo panel: tasa de crashes (de Prometheus), logs de error recientes (de Elasticsearch) y latencia del servicio (de Prometheus). |
+| Herramienta              | Tipo de Herramienta               | Función Principal                                                                                                             | ¿Qué dato maneja?                             | Rol en el Ecosistema Móvil                                                                                                                          | Ejemplo de Uso en Móvil                                                                                                                        |
+| ------------------------ | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| **OpenTelemetry (OTel)** | SDK / Estándar (No es un backend) | Instrumentación y Exportación de datos. Proporciona APIs y librerías para generar y enviar telemetría de forma estandarizada. | Métricas, Trazas y Logs (los tres pilares).   | Se integra directamente en el código de la app móvil para recolectar datos de forma unificada. Es el "cómo" se recoge la data.                      | Instrumentar una solicitud de red para medir su latencia y crear una traza de la transacción "Abrir Perfil de Usuario".                        |
+| **Prometheus**           | Base de Datos / Recolector        | Almacenamiento y consulta de métricas numéricas. Recoge, almacena y permite consultar (con PromQL) datos de series de tiempo. | Métricas (exclusivamente).                    | Recibe las métricas exportadas por el Collector de OTel (ej: tasa de crashes, uso de memoria, latencia de API).                                     | Almacenar la métrica `app_crash_total` para calcular la tasa de fallos y trigger de alertas.                                                   |
+| **ELK Stack**            | Plataforma de Análisis            | Ingestión, almacenamiento y búsqueda de datos logísticos. Es la solución clásica y poderosa para el análisis de logs.         | Logs (su especialidad principal).             | Recibe los logs estructurados (ej. errores, excepciones, eventos de negocio) exportados por el Collector de OTel.                                   | Buscar todos los logs que contengan "NullPointerException" en la versión 2.1.0 de la app para priorizar un hotfix.                             |
+| **Grafana**              | Herramienta de Visualización      | Visualización y agregación de datos en paneles (dashboards). No almacena datos, se conecta a otras fuentes.                   | Métricas, Logs, Trazas (de cualquier fuente). | Une todo. Crea paneles unificados conectándose a Prometheus (métricas), ELK (logs) y otros backends para dar una visión 360º de la salud de la app. | Mostrar en un solo panel: tasa de crashes (de Prometheus), logs de error recientes (de Elasticsearch) y latencia del servicio (de Prometheus). |
 
 ## Configuración de alertas y paneles para detección de anomalías y análisis en tiempo real
 
@@ -76,19 +76,19 @@ val apiLatencyHistogram = meter.histogramBuilder("api.latency")
 fun callUserProfileApi(userId: String) {
     val tracer = openTelemetry.tracer("api_tracer")
     val span = tracer.spanBuilder("GET /user/profile").startSpan()
-    
+
     try {
         val startTime = System.currentTimeMillis()
         // Llamada real a la API...
         val duration = System.currentTimeMillis() - startTime
-        
+
         // Registrar latencia
-        apiLatencyHistogram.record(duration.toDouble(), 
+        apiLatencyHistogram.record(duration.toDouble(),
             Attributes.of(
                 AttributeKey.stringKey("api.endpoint"), "/user/profile",
                 AttributeKey.stringKey("http.status"), "200"
             ))
-            
+
     } catch (e: Exception) {
         crashCounter.add(1, Attributes.of(
             AttributeKey.stringKey("exception.type"), e.javaClass.simpleName
@@ -99,3 +99,4 @@ fun callUserProfileApi(userId: String) {
         span.end()
     }
 }
+```
